@@ -1,18 +1,31 @@
-import 'package:emergency/Pages/last_singup.dart';
+import 'package:emergency/providers/application_state.dart';
+import 'package:emergency/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/temp_custom_user.dart';
 
 class Signup extends StatefulWidget {
-  const Signup({super.key});
+  const Signup({
+    super.key,
+    required this.tempCustomUser
+  });
+  final TempCustomUser tempCustomUser;
 
   @override
   State<Signup> createState() => _SignupState();
 }
 
 class _SignupState extends State<Signup> {
-  late bool check = false;
-  late bool check1 = false;
+  late bool check = true;
+  late bool check1 = true;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final password2Controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<ApplicationState>(context);
     return Scaffold(
       resizeToAvoidBottomInset: true, // IMPORTANT
       appBar: AppBar(),
@@ -44,12 +57,13 @@ class _SignupState extends State<Signup> {
                           children: [
                             // Email
                             TextField(
+                              controller:emailController,
                               decoration: _inputDecoration('Email', 'Your Email'),
                             ),
                             SizedBox(height: 32),
-
                             // Password
                             TextField(
+                              controller: passwordController,
                               obscureText: check,
                               decoration: _inputDecoration(
                                 'Password',
@@ -68,6 +82,7 @@ class _SignupState extends State<Signup> {
 
                             // Confirm Password
                             TextField(
+                              controller: password2Controller,
                               obscureText: check1,
                               decoration: _inputDecoration(
                                 'Confirm Password',
@@ -130,11 +145,20 @@ class _SignupState extends State<Signup> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => LastSingup()),
-                            );
+                            if(passwordController.text == password2Controller.text && emailController.text!= '' ){
+                              final email = emailController.text.trim();
+                              final password = password2Controller.text.trim();
+                              appState.signUp(email, password);
+                              Navigator.of(context).push(
+                                   MaterialPageRoute(builder: (context) => Login()),
+                                  );
+                            }else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('The Password Are Not the Same'))
+                              );
+                            }
                           },
-                          child: Text('Next'),
+                          child: Text('Done'),
                         ),
                       ),
                       SizedBox(height: 16), // <- This prevents last button from sticking

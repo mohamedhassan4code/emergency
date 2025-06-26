@@ -1,9 +1,11 @@
-import 'package:emergency/Pages/community.dart';
-import 'package:emergency/Pages/emergencies.dart';
-import 'package:emergency/Pages/learn.dart';
-import 'package:emergency/Pages/post_emergency.dart';
-import 'package:emergency/Pages/profile.dart';
+import 'package:emergency/providers/application_state.dart';
+import 'package:emergency/screens/community.dart';
+import 'package:emergency/screens/emergencies.dart';
+import 'package:emergency/screens/learn.dart';
+import 'package:emergency/screens/post_emergency.dart';
+import 'package:emergency/screens/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -23,7 +25,19 @@ class _HomeState extends State<Home> {
   ];
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<ApplicationState>(context);
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          if(appState.isLoggedIn)
+            IconButton(
+             icon: Icon(Icons.logout),
+              onPressed: (){
+               appState.signOut();
+              },
+            )
+        ],
+      ),
       body: IndexedStack(
         index: _currentIndex,
         children: _screens,

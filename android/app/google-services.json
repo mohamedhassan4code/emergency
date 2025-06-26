@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "500166087872",
+    "project_id": "emergency-cb8cd",
+    "storage_bucket": "emergency-cb8cd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500166087872:android:6ecb5753127395266b0925",
+        "android_client_info": {
+          "package_name": "com.example.emergency"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHclLBMD8FysHKk_QAb-nE3K92zl4hs7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

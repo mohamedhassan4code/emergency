@@ -1,16 +1,26 @@
-import 'package:emergency/Pages/signup.dart';
+import 'dart:developer' as console;
+
+import 'package:emergency/models/temp_custom_user.dart';
+import 'package:emergency/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class CreateAccount extends StatefulWidget {
-  const CreateAccount({super.key});
+  const CreateAccount({
+    super.key
+  });
+
 
   @override
   State<CreateAccount> createState() => _CreateAccountState();
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  final globalKey = TextEditingController();
+  final birthKey = TextEditingController();
+  final addressKey = TextEditingController();
+  final phoneKey = TextEditingController();
+  String completePhoneNumber = '';
+  late TempCustomUser tempCustomUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +63,8 @@ class _CreateAccountState extends State<CreateAccount> {
                       Form(
                         child: Column(
                           children: [
-                            TextField(
-                              controller: globalKey,
+                            TextFormField(
+                              controller: birthKey,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(32),
@@ -88,15 +98,14 @@ class _CreateAccountState extends State<CreateAccount> {
                               onTap: (){
                                 showDatePicker(context: context, firstDate: DateTime(1980), lastDate: DateTime.now()).then((v){
                                   setState(() {
-
-                                    globalKey.text = v!.toString();
+                                    birthKey.text = v!.toString();
                                   });
                                 });
                               },
                             ),
                             SizedBox(height: 16,),
-                            TextField(
-
+                            TextFormField(
+                              controller: addressKey,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(32),
@@ -129,6 +138,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             ),
                             SizedBox(height: 16,),
                             IntlPhoneField(
+                              controller: phoneKey,
                               decoration: InputDecoration(
                                   labelStyle: TextStyle(
                                       color: Color(0xFF333333),
@@ -151,6 +161,9 @@ class _CreateAccountState extends State<CreateAccount> {
                                   ),
                                   labelText: 'Phone'
                               ),
+                              onChanged: (v){
+                                completePhoneNumber = v.completeNumber;
+                              },
                             ),
                             SizedBox(
                               width: double.infinity,
@@ -163,8 +176,12 @@ class _CreateAccountState extends State<CreateAccount> {
                                       )
                                   ),
                                   onPressed: (){
+                                    TempCustomUser temp = TempCustomUser(dateBirth:DateTime.parse (birthKey.text.toString()), address: addressKey.text, phoneNumber:completePhoneNumber);
+                                    console.log('the address is ${temp.address} - the phone number is ${temp.phoneNumber} --- the birthday is ${temp.dateBirth}');
                                     Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context)=>Signup())
+                                        MaterialPageRoute(builder: (context)=>Signup(
+                                          tempCustomUser: temp,
+                                        ))
                                     );
                                   },
                                   child: Text('Next')

@@ -1,7 +1,7 @@
 import 'dart:developer' as console;
 
 import 'package:emergency/models/temp_custom_user.dart';
-import 'package:emergency/screens/signup.dart';
+import 'package:emergency/screens/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -9,8 +9,6 @@ class CreateAccount extends StatefulWidget {
   const CreateAccount({
     super.key
   });
-
-
   @override
   State<CreateAccount> createState() => _CreateAccountState();
 }

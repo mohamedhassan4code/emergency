@@ -1,9 +1,8 @@
+import 'package:emergency/models/temp_custom_user.dart';
 import 'package:emergency/providers/application_state.dart';
-import 'package:emergency/screens/login.dart';
+import 'package:emergency/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../models/temp_custom_user.dart';
 
 class Signup extends StatefulWidget {
   const Signup({

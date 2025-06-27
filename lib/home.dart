@@ -1,9 +1,9 @@
 import 'package:emergency/providers/application_state.dart';
-import 'package:emergency/screens/community.dart';
-import 'package:emergency/screens/emergencies.dart';
-import 'package:emergency/screens/learn.dart';
-import 'package:emergency/screens/post_emergency.dart';
-import 'package:emergency/screens/profile.dart';
+import 'package:emergency/screens/home/community.dart';
+import 'package:emergency/screens/home/emergencies.dart';
+import 'package:emergency/screens/home/learn.dart';
+import 'package:emergency/screens/home/post_emergency.dart';
+import 'package:emergency/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class Home extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:emergency/providers/application_state.dart';
-import 'package:emergency/screens/create_account.dart';
+import 'package:emergency/screens/auth/create_account.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class Login extends StatefulWidget {
@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  late bool  check = true;
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<ApplicationState>(context);
@@ -66,18 +67,25 @@ class _LoginState extends State<Login> {
                               'Password',
                             ),
                             TextFormField(
+                              obscureText: check,
                               controller: passwordController,
                                 decoration: InputDecoration(
                                     hintStyle: TextStyle(
                                         color: Colors.grey
                                     ),
                                     hintText: 'Enter Your Password',
-                                    suffixIcon: Icon(
-                                        Icons.remove_red_eye_outlined),
-                                  enabledBorder: OutlineInputBorder(
+                                    suffix:InkWell(
+                                      child: check
+                                          ? Image.asset('assets/images/test.png', width: 20, height: 20)
+                                          : Icon(Icons.remove_red_eye),
+                                      onTap: () {
+                                        setState(() => check = !check);
+                                      },
+                                    ),
+                                  enabledBorder: UnderlineInputBorder()
 
-                                  )
-                                )
+                                ),
+
                             ),
                             SizedBox(height: 24.0,),
                             SizedBox(
